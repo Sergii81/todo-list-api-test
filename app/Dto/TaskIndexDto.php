@@ -13,6 +13,7 @@ class TaskIndexDto
     public function __construct(
         private int $userId,
         private ?string $search,
+        private ?array $filter
     ) {
     }
 
@@ -24,7 +25,8 @@ class TaskIndexDto
     {
         return new static(
             userId: auth('sanctum')->user()->getAuthIdentifier(),
-            search: ! empty($request->search) ? $request->search : null
+            search: ! empty($request->search) ? $request->search : null,
+            filter: ! empty($request->filter) ? $request->filter : null,
         );
     }
 
@@ -42,5 +44,13 @@ class TaskIndexDto
     public function getUserId(): int
     {
         return $this->userId;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getFilter(): ?array
+    {
+        return $this->filter;
     }
 }

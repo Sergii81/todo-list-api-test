@@ -50,6 +50,10 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
 
         new QueryFilter($query, $this->getAllowedFilters(), $this->getAllowedSorts());
 
+        if(! empty($dto->getFilter())) {
+            return $query->get();
+        }
+
         return $query->tree()->get();
     }
 }
