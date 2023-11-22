@@ -9,11 +9,12 @@ class TaskIndexDto
     /**
      * @param int $userId
      * @param string|null $search
+     * @param array|null $filter
      */
     public function __construct(
-        private int $userId,
-        private ?string $search,
-        private ?array $filter
+        private readonly int $userId,
+        private readonly ?string $search,
+        private readonly ?array $filter
     ) {
     }
 

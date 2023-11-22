@@ -8,6 +8,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class QueryFilter extends QueryBuilder
 {
+    /**
+     * @param Builder|Relation $query
+     * @param array|null $filters
+     * @param array|null $sorts
+     * @param string|null $defaultSort
+     */
     public function __construct(Builder|Relation $query, ?array $filters = null, ?array $sorts = null, ?string $defaultSort = null)
     {
         parent::__construct($query);

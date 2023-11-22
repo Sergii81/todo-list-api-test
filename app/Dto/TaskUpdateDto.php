@@ -35,12 +35,13 @@ class TaskUpdateDto
      */
     public static function fromRequest(Request $request): static
     {
+        /** @var Task $task */
         $task = Task::query()->where('id', '=', $request->id)->first();
 
         return new static(
             user_id: auth('sanctum')->user()->getAuthIdentifier(),
             status: ! empty($request->status) ? $request->status : $task->status,
-            priority: ! empty($request->priority) ? $request->priority : $task->priotity,
+            priority: ! empty($request->priority) ? $request->priority : $task->priority,
             title: ! empty($request->title) ? $request->title : $task->title,
             description: ! empty($request->description) ? $request->description : $task->description,
             parent_id: ! empty($request->parent_id) ? $request->parent_id : $task->parent_id,

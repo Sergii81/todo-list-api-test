@@ -25,7 +25,7 @@ class TaskCreateDto
     ) {
     }
 
-    public static function fromRequest(Request $request)
+    public static function fromRequest(Request $request): static
     {
         return new static(
             user_id: auth('sanctum')->user()->getAuthIdentifier(),

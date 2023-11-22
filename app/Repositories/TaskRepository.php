@@ -14,12 +14,17 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskRepository extends AbstractRepository implements TaskRepositoryInterface
 {
-
+    /**
+     * @return Model
+     */
     public function getModel(): Model
     {
         return new Task();
     }
 
+    /**
+     * @return array
+     */
     public function getAllowedFilters(): array
     {
         return [
@@ -28,6 +33,9 @@ class TaskRepository extends AbstractRepository implements TaskRepositoryInterfa
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function getAllowedSorts(): array
     {
         return [

@@ -20,11 +20,5 @@ interface RepositoryInterface
 
     public function updateById(int $id, array $data): ?Model;
 
-    public function updateOrCreate(array $conditions, array $data): ?Model;
-
     public function delete(int $id): ?bool;
-
-    public function insert(array $inserts): int;
-
-    public function destroy(array $ids): int;
 }

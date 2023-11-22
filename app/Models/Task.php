@@ -9,6 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
+/**
+ * @property int $id
+ * @property int $user_id,
+ * @property string|null $status
+ * @property int|null $priority
+ * @property string|null $title
+ * @property string|null $description
+ * @property int|null $parent_id
+ */
 class Task extends Model
 {
     use HasFactory;
