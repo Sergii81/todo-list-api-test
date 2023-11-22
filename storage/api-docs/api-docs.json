@@ -1,0 +1,363 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "todo list api",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1"
+        }
+    ],
+    "paths": {
+        "/statuses": {
+            "get": {
+                "tags": [
+                    "statuses"
+                ],
+                "summary": "Index",
+                "operationId": "be9a009d7df11379e85cbad10b38efdd",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Index",
+                "operationId": "6a93d54730cde509d735e538ab6800f6",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskCollection"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Create Task",
+                "operationId": "f22166d8ef8f7035d351d1180d1bdc82",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskWithoutChildrenResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/{task_id}": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Show Task",
+                "operationId": "b59b90d1999bbc27cbb8062a4436080d",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Update Task",
+                "operationId": "b534e272c534f7982f7562e0f4c268bb",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskWithoutChildrenResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/delete/{task_id}": {
+            "delete": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Delete Task",
+                "operationId": "96cb4e623076d608b79dc71916117ce0",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TaskCreateRequest": {
+                "title": "TaskCreateRequest",
+                "description": "TaskCreateRequest",
+                "required": [
+                    "priority",
+                    "title"
+                ],
+                "properties": {
+                    "priority": {
+                        "type": "integer",
+                        "maximum": 5,
+                        "minimum": 1,
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Description",
+                        "nullable": true
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "example": 1,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "TaskUpdateRequest": {
+                "title": "TaskUpdateRequest",
+                "description": "TaskUpdateRequest",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "todo"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "maximum": 5,
+                        "minimum": 1,
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Description",
+                        "nullable": true
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "example": 1,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "StatusResource": {
+                "title": "StatusResource",
+                "description": "Status Resource",
+                "properties": {
+                    "0": {
+                        "type": "string",
+                        "example": "todo"
+                    },
+                    "1": {
+                        "type": "string",
+                        "example": "done"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskCollection": {
+                "title": "TaskCollection",
+                "description": "Task resource collection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TaskResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResource": {
+                "title": "TaskResource",
+                "description": "Task resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "todo",
+                            "done"
+                        ]
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Description"
+                    },
+                    "completedAt": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "01.01.2023"
+                    },
+                    "children": {
+                        "$ref": "#/components/schemas/TaskCollection"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskWithoutChildrenResource": {
+                "title": "TaskWithoutChildrenResource",
+                "description": "Task TaskWithoutChildrenResource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "todo",
+                            "done"
+                        ]
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Description"
+                    },
+                    "completedAt": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "01.01.2023"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "tasks",
+            "description": "Tasks"
+        },
+        {
+            "name": "statuses",
+            "description": "Statuses"
+        }
+    ]
+}
