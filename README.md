@@ -42,3 +42,11 @@
 2. Set Authorization
    
             Authorization: Bearer 1|CdFUyTDmUkUvX2sHyhVP1CBMacse12cgsGUoSVpY7e7ff088
+
+3. Filter 
+
+         GET http://localhost:8989/api/v1/tasks?filter[status]=todo
+4. Sorting 
+
+         GET http://localhost:8989/api/v1/tasks?filter[status]=todo&sort=-created_at
+        
